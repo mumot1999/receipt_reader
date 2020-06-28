@@ -3,6 +3,7 @@ import re
 import cv2
 import pytesseract
 from pytesseract import Output
+from src.image_transforms import opening, canny, get_grayscale
 
 
 class Price:
@@ -13,11 +14,16 @@ class Price:
 
 img = cv2.imread('test.png')
 
+# img = get_grayscale(image)
+# img = opening(img)
+cv2.imshow('img_raw', img)
+
+
 custom_config = r'-l pol --psm 6'
 
 d = pytesseract.image_to_data(img, output_type=Output.DICT, config=custom_config)
 print(d.keys())
-
+print(d['text'])
 
 prices = []
 
